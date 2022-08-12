@@ -1,4 +1,3 @@
-//function que pida datos, almacene en un objeto los datos personales de cada persona (obj fuera o dentro?) y otra que sortee un número de math.floor(math.random)*array.length y luego de los datos del ganador como objetos.
 let nombre = []
 let dni = []
 let tel = []
