@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: rgb(60,60,60);
+    background: radial-gradient(circle, rgba(60,60,60,1) 28%, rgba(45,45,45,1) 100%, rgba(96,96,96,1) 100%);
+}
+.container{
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 500px;
+    background: none;
+}
+.par{
+    background: #27c80b;
+}
+.impar{
+    background: #ff1111;
+}
+p{  
+    font-size: 2em;
+    background: none;
+}
