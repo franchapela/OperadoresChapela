@@ -1,11 +1,11 @@
 //Función para pedir un número al usuario.
 let pedirNum = () => {
         
-    let num = prompt(`¡Hola! Por favor ingresa un número entre 1-10, si el mismo es par, el fondo será verde, de caso contrario el fondo será rojo:`);
+    let num = prompt(`¡Hola! Por favor ingresa un número entre 1-999.999.999, si el mismo es par, el fondo será verde, de caso contrario el fondo será rojo:`);
 
     //Bucle while para corroborar el número.
-     while((isNaN(num)) || (num < 1) || (num > 10)){
-         num = prompt(`El número ingresado no es válido. Ingresa un número entre 1-10, si el mismo es par, el fondo será verde, de caso contrario el fondo será rojo:`);
+     while((isNaN(num)) || (num > 999999999) || (num < 1) || (num === null)){
+         num = prompt(`El número ingresado no es válido. Ingresa un número entre 1-999.999.999, si el mismo es par, el fondo será verde, de caso contrario el fondo será rojo:`);
     }
 
     //Devuelvo el resultado.
