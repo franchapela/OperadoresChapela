@@ -1,26 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
 *{
-    margin: 0;
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    background: rgb(60,60,60);
-    background: radial-gradient(circle, rgba(60,60,60,1) 28%, rgba(45,45,45,1) 100%, rgba(96,96,96,1) 100%);
 }
+
 .container{
     display: flex;
-    margin: auto;
+    flex-direction: column;
+    background-color: rgba(8, 8, 8, 0.952);
     align-items: center;
     justify-content: center;
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 100vh;
+}
+
+.h1{
+    font-family: 'Aboreto', cursive;
+    margin: 50px auto;
+    -webkit-text-stroke: 0.1px #636;
+    color: #000;  
+}
+
+.calculador-container{
+    display: flex;
+    background: #bbb;
+    width: 700px;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 30px;
+    padding: 50px;
+}
+
+.calculador{
     background: none;
+    display: flex;
+    flex-direction: row;
+
 }
-.par{
-    background: #27c80b;
+.text{
+    margin: 0 auto 20px;
+    font-size: 1.1rem;
+    line-height: 35px;
+    text-align: center;
 }
-.impar{
-    background: #ff1111;
+#valor{
+    width:150px;
+    margin: 3px;
+    height: 30px;
+    padding: 5px;
 }
-p{  
-    font-size: 2em;
-    background: none;
+#calculo{
+    width: 150px;
+    height: 30px;
+    margin: 3px;
+    padding: 5px;
+}
+#btn{
+    width: 70px;
+    margin: 10px;
+    height: 30px;
+}
+#resultado{
+    margin: 40px auto 0px;
 }

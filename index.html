@@ -5,13 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Clase 8</title>
+    <title>Calculadora pH y pOH</title>
 
     <link rel="stylesheet" href="./styles/styles.css">
+
 </head>
 <body>
-
-    <div class="container" id="container"></div>
+    <div class="container" id="container">
+        <h1 class="h1">Calculadora de pH y pOH</h1>
+        <div class="calculador-container" id="calculador-container">
+            <p class="text">
+                Seleccione la operación a realizar y coloque el valor. Sólo valores mayores a 0, y menores a 15 en caso de utilizar pKw.<br>La fórmula a utilizar en este caso es:<br> <span id="formula"></span>
+            </p>
+            <div class="calculador" id="calculador">
+                <select name="calculo" id="calculo">
+                    <option value="phDeOh">pH de OH-</option>
+                    <option value="phDeH">pH de H+</option>
+                    <option value="phConPohPkw">pH con pOH y pKw</option>
+                    <option value="pohDeOh">pOH de OH-</option>
+                    <option value="pohDeH">pOH de H+</option>
+                    <option value="pohConPhPkw">pOH con pH y pKw</option>
+                </select>
+                <input type="number" placeholder="OH- en mol/L" id="valor">
+            </div>
+            <button type="submit" id="btn">Calcular</button>
+            <div id="resultado">
+            </div>
+        </div>
+        
+    </div>
 
     <script src="./js/app.js"></script>
 </body>
