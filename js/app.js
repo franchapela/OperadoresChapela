@@ -1,192 +1,129 @@
-//Función para obtener el valor del select.
-const opcion = () => {
-    let seleccion = document.querySelector('#calculo').selectedIndex
+//Defino la clase peliculas.
+class Pelicula{
 
-    return seleccion;
-}
-//Función para calcular el pH mediante OH.
-const phOh = () => {
-    
-    //Cambio el placeholder del input para informar que debe introducirse.
-    input.placeholder = ('OH- en mol/L');
-    //Cambio el span con la fórmula que se utiliza para este cálculo.
-    formula.innerText = "pH = 14 + log([OH-])"
-    //Evento onclick
-    btn.onclick = e =>{
-
-        //Tomo el valor ingresado por el usuario y lo paso a number.
-        valor = parseInt(input.value, 10);
-        //Realizo el cálculo.
-        calculo = (14+(Math.log10(input.value)));
-        //Llamo a la variable de verificación.
-        verificar(valor, calculo);
-
-    }
-}
-//Función para calcular el pH mediante H.
-const phH = () => {
-    //Cambio el placeholder del input para informar que debe introducirse.
-    input.placeholder= ('H+ en mol/L');
-    //Cambio el span con la fórmula que se utiliza para este cálculo.
-    formula.innerText = "pH = -log([H+])";
-    //Evento onclick
-    btn.onclick = e =>{
-        //Tomo el valor ingresado por el usuario y lo paso a number.
-        valor = parseInt(input.value, 10);
-        //Realizo el cálculo.
-        calculo = (-(Math.log(input.value)));
-        //Llamo a la variable de verificación.
-        verificar(valor, calculo);
-
-    }
-}
-//Función para calcular pH con pOH y pKw.
-const phPohPkw = () => {
-    
-    input.placeholder= ('pOH de la base');
-
-    formula.innerText = "pH = 14 - pOH"
-
-    btn.onclick = e =>{
-
-        valor = parseInt(input.value, 10);
-
-        calculo = (14 - input.value);
-        //Hago un cambio en la verificación, ya que en este cálculo el valor introducido no puede ser mayor a 14.
-        if((valor <= 0) || (valor > 14) || (isNaN(valor))){
-
-            resultado.innerText = "Valor no admitido, intente con números mayores a 0 y menores a 15.";
-    
-        }
-        else{
-    
-            resultado.innerText = calculo.toFixed(2);
-    
-        }
-
-    }
-
-}
-//Función para calcular pOH con OH.
-const pohOh = () => {
-    
-    input.placeholder= ('OH- en mol/L');
-
-    formula.innerText = "pOH -log([OH-])";
-
-    btn.onclick = e =>{
-
-        valor = parseInt(input.value, 10);
-
-        calculo = (-(Math.log(input.value)));
-
-        verificar(valor, calculo);
-
-    }
-}
-//Función para calcular pOH con H.
-const pohH = () => {
-    
-    input.placeholder= ('H+ en mol/L');
-    formula.innerText = "pOH = 14 + log([H+])";
-
-    btn.onclick = e =>{
-
-        valor = parseInt(input.value, 10);
-
-        calculo = (14+(Math.log(input.value)));
-
-        verificar(valor, calculo);
-
-    }
-}
-//Función para calcular pOH con pH y pKw.
-const pohPhPkw = () => {
-    
-    input.placeholder= ('Ingresa el Ph');
-    formula.innerText = "pOH = 14 - pH"
-
-    btn.onclick = e =>{
-
-        valor = parseInt(input.value, 10);
-
-        calculo = (14 - input.value);
-        //Hago un cambio en la verificación, ya que en este cálculo el valor introducido no puede ser mayor a 14.
-        if((valor <= 0) || (valor > 14) || (isNaN(valor))){
-
-            resultado.innerText = "Valor no admitido, intente con números mayores a 0 y menores a 15.";
-    
-        }
-        else{
-    
-            resultado.innerText = calculo.toFixed(2);
-    
-        }
-
-    }
-}
-//Función para verificar el valor introducido.
-const verificar = (valor, calculo) => {
-    //Si el valor es < 0 o NaN, se informa al usuario. De caso contrario, se digita el resultado con dos decimales.
-    if((valor <= 0) || (isNaN(valor))){
-
-        resultado.innerText = "Valor no admitido, intente con números mayores a 0";
-
-    }
-    else{
-
-        resultado.innerText = calculo.toFixed(2);
-
+    constructor(nombre, descripcion, genero, calificacion){
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.genero = genero;
+        this.calificacion = calificacion;
     }
 }
 
-//Inicializo var que uso para parseInt.
-let valor;
+//Funcion para añadir peliculas
+let anadirPelicula = (e) =>{
 
-//Var para realizar los cálculos.
-let calculo;
+    e.preventDefault();
 
-//Almacena al botón "Calcular".
-let btn = document.querySelector('#btn');
+    //Recupero las películas almacenadas en el localStorage
+    peliculas = JSON.parse(localStorage.getItem("peliculas") || "[]");
 
-//Toma el número del usuario.
-let input = document.getElementById('valor');
+    //Obtengo los datos del formulario para la nueva película.
+    const nombrePelicula = document.getElementById("title").value;
+    const descripcionPelicula = document.getElementById("desc").value;
+    const generoPelicula = document.getElementById("gen").value;
+    const calificacionPelicula = document.getElementById("cal").value;
+    let alerta = document.getElementById("alerta");
 
-//Guarda el div donde se imprime el resultado.
-let resultado = document.getElementById('resultado');
+    //Verifico los datos para evitar datos vacíos con trim(). En caso de que los datos sean correctos, llamo a la funcion crearPelicula().
+    (nombrePelicula.trim().length < 1) || (descripcionPelicula.trim().length < 50) || (generoPelicula.trim().length < 3) || (calificacionPelicula < 1) || (calificacionPelicula >5) ? alerta.style.color = "red" : crearPelicula(nombrePelicula, descripcionPelicula, generoPelicula, calificacionPelicula);
+   
+}
 
-//Span que muestra la fórmula que se está utilizando.
-let formula = document.getElementById("formula");
+let crearPelicula = (nombre, descripcion, genero, calificacion) =>{
 
-//Almaceno el índice en el que se encuentra mi select.
-let seleccion = document.querySelector('#calculo').selectedIndex;
+    let pelicula = 
+        new Pelicula(
+            nombre,
+            descripcion,
+            genero,
+            calificacion
+        )
 
-//Select del html.
-let selector = document.getElementById('calculo');
+    //Agrego la película al array
+    peliculas.push(pelicula);
 
-//Llamo a la función de la primera opción.
-phOh();
+    //Seteo las películas en localStorage.
+    localStorage.setItem("peliculas", JSON.stringify(peliculas));
 
-//Utilizo onchange con un switch para cambiar dependiendo de la selección del usuario.
-selector.onchange = function(){
-    switch(opcion()){
-        case 0:
-            phOh();
-            break;
-        case 1:
-            phH();
-            break;
-        case 2:
-            phPohPkw();
-            break;
-        case 3: 
-            pohOh();
-            break;
-        case 4:
-            pohH();
-            break;
-        case 5:
-            pohPhPkw();
-            break;
+    //Recargo la página para que se visualicen los cambios.
+    window.location.reload();
+
+}
+
+//Funcion para mostrar las películas.
+let mostrarPeliculas = () =>{
+
+    //Recupero las películas almacenadas en el localStorage
+    peliculas = JSON.parse(localStorage.getItem("peliculas") || "[]");
+
+    //For para crear los elementos del DOM para colocar las películas.
+    for(let i = 0; i<peliculas.length; i++){
+
+        let peli = document.createElement("div");
+        let titulo = document.createElement("span");
+        let descrip = document.createElement("p");
+        let genero = document.createElement("span");
+        let calificacionContenedor = document.createElement("div");
+        let calificacion = document.createElement("p");
+        let botonEliminar = document.createElement("button");
+
+
+        titulo.innerHTML = peliculas[i].nombre;
+        descrip.innerHTML = peliculas[i].descripcion;
+        genero.innerHTML = (`Género: ${peliculas[i].genero}`);
+        calificacion.innerHTML = (`Calificación: ${peliculas[i].calificacion}`);
+        botonEliminar.innerHTML = ('Eliminar');
+
+        
+        //Añado las clases
+        peli.classList.add('peli');
+        titulo.classList.add('texto1', 'titulo');
+        descrip.classList.add('texto2');
+        genero.classList.add('texto2');
+        calificacionContenedor.classList.add('container-calif');
+        calificacion.classList.add('calificacion');
+        botonEliminar.classList.add('eliminar-btn');
+        
+        
+        peli.appendChild(titulo);
+        peli.appendChild(descrip);
+        peli.appendChild(genero);
+        peli.appendChild(calificacionContenedor);
+        calificacionContenedor.appendChild(calificacion);
+        calificacionContenedor.appendChild(botonEliminar);
+
+        
+        contenedorPeliculas.appendChild(peli);
     }
 }
+
+//Funcion para eliminar la película.
+let eliminarPelicula = (titulo) =>{for(let i = 0; i<peliculas.length; i++){titulo === peliculas[i].nombre && peliculas.splice(i, 1); localStorage.setItem("peliculas", JSON.stringify(peliculas)); window.location.reload()}}
+
+//Creo un array de objetos que contiene las películas.
+let peliculas = [
+
+]
+
+//Variable que contiene el div para mostrar las películas.
+let contenedorPeliculas = document.getElementById("container-peliculas");
+
+//Botón para añadir películas.
+let anadir = document.getElementById("add");
+
+mostrarPeliculas();
+
+//EventListener para añadir la película.
+anadir.addEventListener('click', anadirPelicula);
+
+//For para obtener el evento del botón Eliminar y así borrar la película con la funcion eliminarPelicula.
+for (let btn of document.getElementsByClassName("eliminar-btn")){
+
+    btn.addEventListener("click", () => {
+
+        eliminarPelicula(btn.closest(".peli").querySelector(".titulo").textContent);
+
+      })
+
+}
+
